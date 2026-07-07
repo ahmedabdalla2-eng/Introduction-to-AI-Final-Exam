@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student GPA Calculator - Ilia State University</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --success: #22c55e;
+            --danger: #ef4444;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+        }
+        .program-info h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--primary);
+        }
+        .program-info p {
+            margin: 5px 0 0;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .info-icon {
+            cursor: pointer;
+            background: #cbd5e1;
+            color: #1e293b;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+            position: relative;
+        }
+        .info-icon:hover {
+            background: #94a3b8;
+        }
+        .tooltip {
+            visibility: hidden;
+            width: 400px;
+            background-color: #334155;
+            color: #fff;
+            text-align: left;
+            border-radius: 8px;
+            padding: 15px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+            line-height: 1.5;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+        .info-icon:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: #475569;
+        }
+        .status-yes { color: var(--success); font-weight: bold; }
+        .status-no { color: var(--danger); font-weight: bold; }
+        .actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+        .btn-calc {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-calc:hover {
+            background-color: var(--primary-dark);
+        }
+        .btn-ai {
+            background-color: #8b5cf6;
+            color: white;
+        }
+        .btn-ai:hover {
+            background-color: #7c3aed;
+        }
+        .result-display {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            display: none;
+            text-align: center;
+        }
+        .result-display h2 {
+            margin: 0;
+            font-size: 28px;
+            color: var(--primary);
+        }
+        .ai-description {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #64748b;
+            max-width: 500px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="program-info">
+                <h1>GPA Calculator</h1>
+                <p id="programName">Loading program...</p>
+            </div>
+            <div class="info-icon">
+                i
+                <div class="tooltip">
+                    <strong>GPA Calculation Rules (Ilia State University)</strong><br><br>
+                    1. <strong>Formula:</strong> GPA = Σ(Course GP × Credits) / Σ(Total Credits)<br>
+                    2. <strong>GP Scale:</strong><br>
+                    - F (0-50): 0.00 GP<br>
+                    - E (51-60): 1.00 GP<br>
+                    - D to A (61-95): GP increases linearly by 1/12 (~0.083) for each point above 60.<br>
+                    - A+ (96-100): 4.00 GP<br>
+                    3. <strong>Rounding:</strong> Final GPA is rounded to two decimal places.
+                </div>
+            </div>
+        </div>
+
+        <table id="courseTable">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Credit</th>
+                    <th>Grade</th>
+                    <th>Passed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows injected by JS -->
+            </tbody>
+        </table>
+
+        <div class="actions">
+            <button class="btn-calc" onclick="calculateGPA()">Calculate</button>
+            <button class="btn-ai" onclick="calculateAI()">Calculate with Introduction to AI</button>
+        </div>
+        <div class="ai-description">
+            * The "Calculate with Introduction to AI" button assumes your final score for the Introduction to AI course is your current accumulated points plus 30 points from the final exam.
+        </div>
+
+        <div id="result" class="result-display">
+            <p>Your Calculated GPA is:</p>
+            <h2 id="gpaValue">0.00</h2>
+        </div>
+    </div>
+
+    <script>
+        // DATA CONFIGURATION
+        const PROGRAM_NAME = "Computer Science"; 
+        const COURSE_DATA = [
+            { name: "Introduction to Programming (ENG)", credit: 6, grade: 0, passed: "No" },
+            { name: "Academic Writing Techniques (ENG)", credit: 6, grade: 0, passed: "No" },
+            { name: "Introduction to Artificial Intelligence (ENG)", credit: 6, grade: 63, passed: "No" },
+            { name: "Introduction to Modern Thinking I (ENG)", credit: 6, grade: 58, passed: "Yes" },
+        ];
+
+        // Additional courses required by the assignment
+        const ADDITIONAL_COURSES = [
+            { name: "Algorithms and Data Structures", credit: 6, grade: 100, passed: "Yes" },
+            { name: "Operating Systems", credit: 6, grade: 100, passed: "Yes" },
+            { name: "Database Systems", credit: 6, grade: 100, passed: "Yes" },
+            { name: "Computer Networks", credit: 6, grade: 100, passed: "Yes" },
+            { name: "Software Engineering", credit: 6, grade: 100, passed: "Yes" },
+        ];
+
+        function getGP(score) {
+            if (score < 51) return 0.0;
+            if (score <= 60) return 1.0;
+            if (score <= 95) return 1.0 + (score - 60) / 12;
+            if (score <= 100) return 4.0;
+            return 4.0;
+        }
+
+        function init() {
+            document.getElementById('programName').textContent = PROGRAM_NAME;
+            const tbody = document.querySelector('#courseTable tbody');
+            const allCourses = [...COURSE_DATA, ...ADDITIONAL_COURSES];
+            
+            allCourses.forEach(course => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${course.name}</td>
+                    <td>${course.credit}</td>
+                    <td>${course.grade}</td>
+                    <td class="${course.passed === 'Yes' ? 'status-yes' : 'status-no'}">${course.passed}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function calculateGPA(customAIAdjustment = null) {
+            let totalWeightedGP = 0;
+            let totalCredits = 0;
+            const allCourses = [...COURSE_DATA, ...ADDITIONAL_COURSES];
+
+            allCourses.forEach(course => {
+                let score = course.grade;
+                if (customAIAdjustment && course.name === "Introduction to Artificial Intelligence (ENG)") {
+                    score += customAIAdjustment;
+                }
+                
+                const gp = getGP(score);
+                totalWeightedGP += gp * course.credit;
+                totalCredits += course.credit;
+            });
+
+            const gpa = totalWeightedGP / totalCredits;
+            displayResult(gpa.toFixed(2));
+        }
+
+        function calculateAI() {
+            calculateGPA(30);
+        }
+
+        function displayResult(val) {
+            const resDiv = document.getElementById('result');
+            const valEl = document.getElementById('gpaValue');
+            resDiv.style.display = 'block';
+            valEl.textContent = val;
+        }
+
+        window.onload = init;
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a17736974e8aafe9',t:'MTc4MzQzMTEyNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
