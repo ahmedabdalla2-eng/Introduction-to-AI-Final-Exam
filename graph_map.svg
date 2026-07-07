@@ -1,0 +1,107 @@
+<svg width="860" height="480" viewBox="0 0 860 480" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0b0d10" />
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#5b6672" />
+    </marker>
+  </defs>
+
+  <!-- Edges -->
+  <g stroke-width="2" marker-end="url(#arrowhead)">
+    <!-- GIVA Edges -->
+    <line x1="120" y1="218" x2="280" y2="73" stroke="#8B5CF6" />
+    <line x1="120" y1="218" x2="280" y2="252" stroke="#14B8A6" />
+    <line x1="120" y1="218" x2="280" y2="434" stroke="#10B981" />
+    <line x1="120" y1="218" x2="450" y2="238" stroke="#DC2626" />
+    <line x1="450" y1="238" x2="120" y2="218" stroke="#DC2626" />
+    <line x1="120" y1="218" x2="450" y2="409" stroke="#EF4444" />
+    <line x1="450" y1="409" x2="120" y2="218" stroke="#EF4444" />
+
+    <!-- TALON Edges -->
+    <line x1="280" y1="73" x2="280" y2="434" stroke="#6366F1" />
+    <line x1="280" y1="434" x2="280" y2="73" stroke="#6366F1" />
+    <line x1="280" y1="73" x2="450" y2="60" stroke="#059669" />
+    <line x1="280" y1="73" x2="450" y2="238" stroke="#EC4899" />
+    <line x1="450" y1="238" x2="280" y2="73" stroke="#EC4899" />
+
+    <!-- TARO Edges -->
+    <line x1="280" y1="252" x2="450" y2="238" stroke="#D946EF" />
+    <line x1="280" y1="252" x2="450" y2="409" stroke="#DC2626" />
+
+    <!-- RAVEN Edges -->
+    <line x1="280" y1="434" x2="450" y2="60" stroke="#F43F5E" />
+    <line x1="280" y1="434" x2="450" y2="60" stroke="#22C55E" />
+    <line x1="450" y1="60" x2="280" y2="434" stroke="#22C55E" />
+    <line x1="280" y1="434" x2="450" y2="409" stroke="#84CC16" />
+    <line x1="450" y1="409" x2="280" y2="434" stroke="#84CC16" />
+    <line x1="280" y1="434" x2="640" y2="410" stroke="#D946EF" />
+    <line x1="640" y1="410" x2="280" y2="434" stroke="#D946EF" />
+
+    <!-- VYNE Edges -->
+    <line x1="450" y1="60" x2="640" y2="59" stroke="#3B82F6" />
+    <line x1="450" y1="60" x2="640" y2="230" stroke="#6366F1" />
+    <line x1="640" y1="230" x2="450" y2="60" stroke="#6366F1" />
+
+    <!-- WALTZ Edges -->
+    <line x1="450" y1="238" x2="640" y2="230" stroke="#F59E0B" />
+    <line x1="640" y1="230" x2="450" y2="238" stroke="#F59E0B" />
+    <line x1="450" y1="238" x2="640" y2="410" stroke="#3B82F6" />
+    <line x1="640" y1="410" x2="450" y2="238" stroke="#3B82F6" />
+
+    <!-- ORBIT Edges -->
+    <line x1="450" y1="409" x2="640" y2="59" stroke="#059669" />
+    <line x1="640" y1="59" x2="450" y1="409" stroke="#059669" />
+    <line x1="450" y1="409" x2="640" y2="230" stroke="#D946EF" />
+    <line x1="640" y1="230" x2="450" y1="409" stroke="#D946EF" />
+    <line x1="450" y1="409" x2="640" y2="410" stroke="#64748B" />
+    <line x1="640" y1="410" x2="450" y1="409" stroke="#64748B" />
+
+    <!-- ROOK Edges -->
+    <line x1="640" y1="59" x2="800" y2="206" stroke="#EF4444" />
+
+    <!-- QUILL Edges -->
+    <line x1="640" y1="230" x2="800" y2="206" stroke="#64748B" />
+    <line x1="800" y1="206" x2="640" y2="230" stroke="#64748B" />
+
+    <!-- JARO Edges -->
+    <line x1="640" y1="410" x2="800" y2="206" stroke="#22C55E" />
+  </g>
+
+  <!-- Nodes -->
+  <g font-family="monospace" font-size="12" text-anchor="middle" fill="white">
+    <circle cx="120" cy="218" r="25" fill="#10B981" stroke="#3fc9a3" stroke-width="4" />
+    <text x="120" y="222">GIVA</text>
+    
+    <circle cx="280" cy="73" r="25" fill="#F59E0B" stroke="#232a31" stroke-width="1" />
+    <text x="280" y="77">TALON</text>
+    
+    <circle cx="280" cy="252" r="25" fill="#3B82F6" stroke="#232a31" stroke-width="1" />
+    <text x="280" y="256">TARO</text>
+    
+    <circle cx="280" cy="434" r="25" fill="#334155" stroke="#232a31" stroke-width="1" />
+    <text x="280" y="438">RAVEN</text>
+    
+    <circle cx="450" cy="60" r="25" fill="#F97316" stroke="#232a31" stroke-width="1" />
+    <text x="450" y="64">VYNE</text>
+    
+    <circle cx="450" cy="238" r="25" fill="#F43F5E" stroke="#232a31" stroke-width="1" />
+    <text x="450" y="242">WALTZ</text>
+    
+    <circle cx="450" cy="409" r="25" fill="#6366F1" stroke="#232a31" stroke-width="1" />
+    <text x="450" y="413">ORBIT</text>
+    
+    <circle cx="640" cy="59" r="25" fill="#A855F7" stroke="#232a31" stroke-width="1" />
+    <text x="640" y="63">ROOK</text>
+    
+    <circle cx="640" cy="230" r="25" fill="#4F46E5" stroke="#232a31" stroke-width="1" />
+    <text x="640" y="234">QUILL</text>
+    
+    <circle cx="640" cy="410" r="25" fill="#0EA5E9" stroke="#232a31" stroke-width="1" />
+    <text x="640" y="414">JARO</text>
+    
+    <circle cx="800" cy="206" r="25" fill="#DC2626" stroke="#e2b93b" stroke-width="4" />
+    <text x="800" y="210">ECHO</text>
+  </g>
+</svg>
